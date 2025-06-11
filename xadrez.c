@@ -1,88 +1,73 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
-// O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
+// Função recursiva para o movimento da Torre (para a direita)
+void moverTorre(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
 
-int main() {
-    // Nível Novato - Movimentação das Peças
-    // Sugestão: Declare variáveis constantes para representar o número de casas que cada peça pode se mover.
+// Função recursiva para o movimento da Rainha (para a esquerda)
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
 
-    // Implementação de Movimentação do Bispo
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação do Bispo em diagonal.
+void moverBispo(int linhaAtual, int totalLinhas) {
+    if (linhaAtual >= totalLinhas) return;
 
-    // Implementação de Movimentação da Torre
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Torre para a direita.
-
-    // Implementação de Movimentação da Rainha
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Rainha para a esquerda.
-
-    // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
-
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
-
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
-    
-    // Nível Novato - Movimentação das Peças
-    // Sugestão: Declare variáveis constantes para representar o número de casas que cada peça pode se mover.
-
-    // Declaração de variáveis constantes para o número de casas a serem movidas por cada peça.
-    const int MOVIMENTO_TORRE = 5;  // A Torre se move 5 casas para a direita.
-    const int MOVIMENTO_BISPO = 5;  // O Bispo se move 5 casas na diagonal.
-    const int MOVIMENTO_RAINHA = 8; // A Rainha se move 8 casas para a esquerda.
-
-    // --- Implementação de Movimentação da Torre (usando for) ---
-    // A Torre se move em linha reta horizontalmente ou verticalmente.
-    printf("--- Movimento da Torre ---\n");
-    for (int i = 1; i <= MOVIMENTO_TORRE; i++) {
-        printf("Direita\n");
+    for (int j = 0; j < 1; j++) {
+        printf("Cima Direita\n");
     }
-    printf("\n");
 
-    // --- Implementação de Movimentação do Bispo (usando while) ---
-    // O Bispo se move na diagonal.
-    printf("--- Movimento do Bispo ---\n");
-    int casasBispo = 0;
-    while (casasBispo < MOVIMENTO_BISPO) {
-        printf("Cima Direita\n"); 
-        casasBispo++;
-    }
-    printf("\n");
+    moverBispo(linhaAtual + 1, totalLinhas);
+}
 
-    // --- Implementação de Movimentação da Rainha (usando do-while) ---
-    // A Rainha se move em todas as direções.
-    printf("--- Movimento da Rainha ---\n");
-    int casasRainha = 0;
-    do {
-        printf("Esquerda\n");
-        casasRainha++;
-    } while (casasRainha < MOVIMENTO_RAINHA);
-    printf("\n");
+// Movimento do Cavalo: 1 movimento em "L" para cima e à direita
+// 2 casas para cima + 1 casa para direita
+void moverCavalo() {
+    const int movimentoVertical = 2;
+    const int movimentoHorizontal = 1;
 
-    // --- Movimento do Cavalo ---
-    // O Cavalo se move em L
-    printf("--- Movimento do Cavalo ---\n");
+    for (int i = 0, j = 0; i <= movimentoVertical; i++) {
+        if (i < movimentoVertical) {
+            printf("Cima\n");
+            continue; // ainda precisa subir mais uma vez
+        }
 
-    const int MOVIMENTO_CAVALO_VERTICAL = 2;   // Duas casas para baixo
-    const int MOVIMENTO_CAVALO_HORIZONTAL = 1; // Uma casa para a esquerda
-
-    // Loop externo com for: movimentação vertical (para baixo)
-    for (int i = 0; i < MOVIMENTO_CAVALO_VERTICAL; i++) {
-        printf("Baixo\n");
-
-        int passoHorizontal = 0;
-        while (passoHorizontal < MOVIMENTO_CAVALO_HORIZONTAL) {
-            if (i == MOVIMENTO_CAVALO_VERTICAL - 1) { // Após o último passo vertical
-                printf("Esquerda\n");
-            }
-            passoHorizontal++;
+        while (j < movimentoHorizontal) {
+            if (j == 1) break;
+            printf("Direita\n");
+            j++;
         }
     }
+}
+
+int main() {
+    const int MOVIMENTO_TORRE = 5;
+    const int MOVIMENTO_BISPO = 5;
+    const int MOVIMENTO_RAINHA = 8;
+
+    // --- Movimento da Torre (Recursivo) ---
+    printf("--- Movimento da Torre ---\n");
+    moverTorre(MOVIMENTO_TORRE);
+    printf("\n");
+
+    // --- Movimento da Rainha (Recursivo) ---
+    printf("--- Movimento da Rainha ---\n");
+    moverRainha(MOVIMENTO_RAINHA);
+    printf("\n");
+
+    // --- Movimento do Bispo (Recursivo + Loops Aninhados) ---
+    printf("--- Movimento do Bispo ---\n");
+    moverBispo(0, MOVIMENTO_BISPO);
+    printf("\n");
+
+    // --- Movimento do Cavalo (Loops Complexos com múltiplas variáveis e controle de fluxo) ---
+    printf("--- Movimento do Cavalo ---\n");
+    moverCavalo();
+    printf("\n");
 
     return 0;
 }
