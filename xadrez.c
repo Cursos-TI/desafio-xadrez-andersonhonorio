@@ -64,5 +64,25 @@ int main() {
     } while (casasRainha < MOVIMENTO_RAINHA);
     printf("\n");
 
+    // --- Movimento do Cavalo ---
+    // O Cavalo se move em L
+    printf("--- Movimento do Cavalo ---\n");
+
+    const int MOVIMENTO_CAVALO_VERTICAL = 2;   // Duas casas para baixo
+    const int MOVIMENTO_CAVALO_HORIZONTAL = 1; // Uma casa para a esquerda
+
+    // Loop externo com for: movimentação vertical (para baixo)
+    for (int i = 0; i < MOVIMENTO_CAVALO_VERTICAL; i++) {
+        printf("Baixo\n");
+
+        int passoHorizontal = 0;
+        while (passoHorizontal < MOVIMENTO_CAVALO_HORIZONTAL) {
+            if (i == MOVIMENTO_CAVALO_VERTICAL - 1) { // Após o último passo vertical
+                printf("Esquerda\n");
+            }
+            passoHorizontal++;
+        }
+    }
+
     return 0;
 }
